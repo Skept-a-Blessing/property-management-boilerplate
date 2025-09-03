@@ -5,13 +5,14 @@ import { PropertyDetail } from '@/components/properties/property-detail';
 import { mockProperties } from '@/lib/mock-data';
 
 interface PropertyDetailPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function PropertyDetailPage({ params }: PropertyDetailPageProps) {
-  const property = mockProperties.find(p => p.id === params.id);
+export default async function PropertyDetailPage({ params }: PropertyDetailPageProps) {
+  const { id } = await params;
+  const property = mockProperties.find(p => p.id === id);
 
   if (!property) {
     return (

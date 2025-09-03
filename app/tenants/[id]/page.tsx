@@ -5,13 +5,14 @@ import { TenantProfile } from '@/components/tenants/tenant-profile';
 import { mockTenants } from '@/lib/mock-data';
 
 interface TenantDetailPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function TenantDetailPage({ params }: TenantDetailPageProps) {
-  const tenant = mockTenants.find(t => t.id === params.id);
+export default async function TenantDetailPage({ params }: TenantDetailPageProps) {
+  const { id } = await params;
+  const tenant = mockTenants.find(t => t.id === id);
 
   if (!tenant) {
     return (
